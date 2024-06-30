@@ -10,8 +10,30 @@
 // 유저가 이미 입력한 숫자를 또 입력하면 알려준다 (기회 안깍음)
 
 let rn = 0
+let playbutton = document.getElementById("play-button")
+let userinput = document.getElementById("user-input")
+let resultarea = document.getElementById("result-area")
+
+
+playbutton.addEventListener("click",play)
 
 function pickrn() {
-    rn = Math.random()
-    console.log("정답",rn)
+    rn = Math.floor(Math.random()*100)+1;
+    console.log("정답",rn);
 }
+
+function play(){
+    let uservalue = userinput.value;
+    if(uservalue<rn){
+        resultarea.textContent = "UP !!!"
+    }
+    else if(uservalue>rn){
+        resultarea.textContent = "DOWN !!!"
+    }
+    else {
+        resultarea.textContent = "맞췄습니다 !!!"
+    }
+}    
+pickrn();
+
+
