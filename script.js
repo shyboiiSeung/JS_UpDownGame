@@ -13,9 +13,15 @@ let rn = 0
 let playbutton = document.getElementById("play-button")
 let userinput = document.getElementById("user-input")
 let resultarea = document.getElementById("result-area")
-
+let resetbutton = document.getElementById("reset-button")
+let chances = 5
+let gameover = false
+let chancearea = document.getElementById("chancearea")
+let history = []
 
 playbutton.addEventListener("click",play)
+resetbutton.addEventListener("click",reset)
+userinput.addEventListener("focus",function(){userinput.value=""})
 
 function pickrn() {
     rn = Math.floor(Math.random()*100)+1;
@@ -24,6 +30,20 @@ function pickrn() {
 
 function play(){
     let uservalue = userinput.value;
+
+    if(uservalue<1 || uservalue>100) {
+        resultarea.textContent="1~100 사이의 숫자를 입력해 주세요"
+        return 
+    }
+    if(history.includes(uservalue)) {
+        resultarea.textContent="이미 입력한 숫자입니다 다른 숫자를 입력해 주세요"
+        return
+    }
+    
+
+    chances --;
+    chancearea.textContent= `남은기회 : ${chances}번`
+    console.log("chance",chances)
     if(uservalue<rn){
         resultarea.textContent = "UP !!!"
     }
@@ -32,8 +52,26 @@ function play(){
     }
     else {
         resultarea.textContent = "맞췄습니다 !!!"
+        gameover=true
+    }
+    history.push(uservalue)
+    console.log(history)
+    if(chances<1){
+        gameover=true
+    }
+    if(gameover==true){
+        playbutton.disabled=true
     }
 }    
+
+function reset() {
+    userinput.value = ""
+    pickrn()
+    resultarea.textContent="결과값이 여기 나옵니다 !"
+}
+
+
+
 pickrn();
 
 
