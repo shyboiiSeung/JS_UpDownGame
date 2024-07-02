@@ -37,6 +37,7 @@ function play(){
     
 
     chances --;
+    history.push(uservalue)
     chancearea.textContent= `남은기회 : ${chances}번 | 입력했던 숫자들 : ${history.join(", ")}`
     console.log("chance",chances)
     if(uservalue<rn){
@@ -49,7 +50,7 @@ function play(){
         resultarea.textContent = "맞췄습니다 축하합니다 !!!"
         playbutton.disabled=true
     }
-    history.push(uservalue)
+    
     console.log(history)
     if(chances<1){
         gameover=true
